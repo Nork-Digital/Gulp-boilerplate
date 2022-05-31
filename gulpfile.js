@@ -19,7 +19,7 @@ gulp.task("clean-img", cleanGulpImg);
 
 function gulpImg() {
   return gulp
-    .src("img/**/*")
+    .src("./assets/img/**/*")
     .pipe(imagemin())
     .pipe(gulp.dest("/assets/img/"));
 }
