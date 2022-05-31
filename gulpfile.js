@@ -12,6 +12,21 @@ import gulpSass from "gulp-sass";
 const sass = gulpSass(dartSass);
 import autoPrefixer from "gulp-autoprefixer";
 
+import fileinclude from "gulp-file-include";
+
+function includeHtml() {
+  return gulp
+    .src(["index.html"])
+    .pipe(
+      fileinclude({
+        prefix: "@@",
+        basepath: "@file",
+      })
+    )
+    .pipe(gulp.dest("./"));
+}
+gulp.task("include-html", includeHtml);
+
 function cleanGulpImg() {
   return gulp.src("/assets/img/*").pipe(clean());
 }
@@ -59,4 +74,7 @@ gulp.task("watch", function () {
   gulp.watch("./assets/js/main/*", gulpJs);
 });
 
-gulp.task("default", gulp.parallel("watch", "gulp-js", "gulp-css"));
+gulp.task(
+  "default",
+  gulp.parallel("watch", "gulp-js", "gulp-css", "include-html")
+);
